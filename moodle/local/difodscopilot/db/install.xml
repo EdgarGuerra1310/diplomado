@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="local/difodscopilot/db" VERSION="2026080500" COMMENT="XMLDB file for DIFODS Copilot">
+  <TABLES>
+    <TABLE NAME="local_difodscopilot_outbox" COMMENT="Durable events awaiting delivery">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="eventuuid" TYPE="char" LENGTH="36" NOTNULL="true"/>
+        <FIELD NAME="eventtype" TYPE="char" LENGTH="80" NOTNULL="true"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="submissionid" TYPE="int" LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="payloadjson" TYPE="text" NOTNULL="true"/>
+        <FIELD NAME="status" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="PENDING"/>
+        <FIELD NAME="attempts" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0"/>
+        <FIELD NAME="lasterror" TYPE="text" NOTNULL="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="coursefk" TYPE="foreign" FIELDS="courseid" REFTABLE="course" REFFIELDS="id"/>
+        <KEY NAME="userfk" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="eventuuiduniq" UNIQUE="true" FIELDS="eventuuid"/>
+        <INDEX NAME="statusidx" UNIQUE="false" FIELDS="status,timemodified"/>
+        <INDEX NAME="submissionidx" UNIQUE="false" FIELDS="submissionid"/>
+      </INDEXES>
+    </TABLE>
+  </TABLES>
+</XMLDB>
+

@@ -1,0 +1,40 @@
+[project]
+name = "difods-copilot-api"
+version = "0.1.0"
+description = "API del Copiloto Pedagógico Inteligente DIFODS"
+requires-python = ">=3.12"
+dependencies = [
+  "fastapi>=0.115,<1",
+  "uvicorn[standard]>=0.34,<1",
+  "sqlalchemy>=2.0,<3",
+  "psycopg[binary]>=3.2,<4",
+  "pydantic-settings>=2.7,<3",
+  "celery>=5.4,<6",
+  "redis>=5.2,<6",
+  "httpx>=0.28,<1",
+  "python-multipart>=0.0.20,<1",
+  "pypdf>=5.1,<6",
+  "python-docx>=1.1,<2",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3,<9",
+  "pytest-cov>=6,<7",
+  "ruff>=0.9,<1",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["app*"]
